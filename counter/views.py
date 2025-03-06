@@ -25,12 +25,17 @@ picam2 = None
 test = 0;
 media_dir = os.path.join(os.getcwd(), 'media/pictures')
 
+#Global URL for the Camera Checked when the system requests the location 
+Camera_URL = "http://192.168.100.2:5000"
+
+
 @login_required
 def index(request):
     return render(request, 'counter/index.html', {'count': count})
 
 @login_required
 def printer_control(request):
+
     return render(request, 'counter/3d_printer.html')
 
 @login_required
@@ -134,7 +139,7 @@ def stop_feed(request):
 
 #def start_feed:
 def download_from_external(request):
-    image_url = "http://192.168.137.135:5000/Raw_Capture"  # Replace with the actual URL of the image
+    image_url = Camera_URL+"/Raw_Capture"  # Replace with the actual URL of the image
 
     try:
         # Make a request to the external website
@@ -147,9 +152,9 @@ def download_from_external(request):
             image_data = response.content
             # Extract the file name from the URL (e.g., 'image.jpg')
             
-            now = datetime.now().strftime("%m-%d %H:%M:%S")
+            now = datetime.now().strftime("%m-%d_%H:%M:%S")
 
-            image_name = os.path.basename(image_url)
+            #image_name = os.path.basename(image_url)
             image_path = os.path.join(media_dir, now + "_pic.jpg")
 
             # Save the image to the Media folder
