@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class WifiConfig(AppConfig):
+class MainPageConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'wifi'
+    name = 'main_page'

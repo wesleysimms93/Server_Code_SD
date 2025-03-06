@@ -1,0 +1,148 @@
+<!-- counter/templates/counter/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Menu</title>
+    {% load static %}
+    <!-- Load Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'images/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin-top: 140px;  /* Adjust for fixed navbar */
+        }
+        
+        .navbar {
+            background-color: #343a40;  /* Dark background */
+        }
+
+        .navbar-brand {
+            color: #ffffff !important;  /* White logo text */
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff !important;
+            font-size: 1.1rem;
+            padding: 10px 15px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa !important;  /* Light color on hover */
+            background-color: #007bff;
+            border-radius: 5px;
+        }
+
+        .navbar-toggler {
+            border-color: #ffffff;
+        }
+
+        .navbar-toggler-icon {
+            width: 30px;
+            height: 30px;
+            display: block;
+            position: relative;
+            background-color: transparent;
+        }
+
+        .btn-main {
+            background-color: #007bff;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-main:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .emergency-stop {
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            border: none;
+            width: 100%;
+        }
+
+        .logout-button {
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Greenhouse Automaton</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'image_list' %}">Images</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'print' %}">Control</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'system_info' %}">View System Information</a>  <!-- Link to system info page -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Content goes here -->
+    <div class="container">
+        <h1>Welcome to the back burner</h1>
+        
+        <div>
+            <button class="emergency-stop" onclick="emergencyStop()">EMERGENCY STOP</button>
+        </div>
+        <ul class="page_ul" > 
+            <a href="{% url 'system_info' %}" class="btn btn-info mb-4" style="width: 50%; padding: 10px 0px" >View System Information</a>  <!-- Link to system info page -->
+            <a href="{% url 'image_list' %}" class="btn btn-info mb-4" style="width: 50%; padding: 10px 0px">Back to Gallery</a>
+            <a href="{% url 'print' %}" class="btn btn-info mb-4" style="width: 50%; padding: 10px 0px">View Printer</a>
+        </ul>
+        
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button class="logout-button" type="submit">Logout</button>
+        </form>
+
+       
+    </div>
+
+    <!-- Optional: Bootstrap JS and dependencies -->
+    <script src="{% static 'script/js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'script/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'script/js/popper.min.js' %}"></script>
+    <script>
+        // Emergency stop functionality
+        function emergencyStop() {
+            //Insert Code for stopping 
+            alert('Emergency stop has been activated!');
+        }
+
+        
+    </script>
+</body>
+</html>
