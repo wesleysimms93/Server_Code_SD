@@ -20,15 +20,23 @@ from django.http import HttpResponse
 from django.core.exceptions import SuspiciousOperation
 
 
+#Were Pitcures are stored
+media_dir = os.path.join(os.getcwd(), 'media/pictures')
 #Global URL for the Camera Checked when the system requests the location 
 Camera_URL = "http://192.168.100.2:5000"
 
-def printer_control(request):
-    return render(request, 'wifi/3d_printer.html')
+
 
 @login_required
 def manual_control(request):
-    return render(request, 'manual_control.html')
+    try:
+        response = requests.get("http://192.168.100.2:5000", timeout=5)
+        if response.status_code == 200:
+            print("Connection Over Ethernet")
+    except requests.ConnectionError:
+        print("Defalting to WIFI")
+        Camera_URL = "http://192.168.137.135:5000"
+    return render(request, 'manual_control.html', {'Cam_url': Camera_URL+"/video_feed"})
 
 
 
