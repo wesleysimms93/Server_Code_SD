@@ -56,4 +56,3 @@ A repository for storing and managing photos captured by the system.
 - **Framework**: Django
 - **Platform**: Raspberry Pi 5
 - **Key Features**: Optimizations include a fully functioning admin panel, HTTPS request handling, and robust login/logout functionalities.
-- **Security**: The use of Python's `source` command ensures restricted access to libraries, mitigating external risks.
