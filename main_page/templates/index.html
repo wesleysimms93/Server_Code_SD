@@ -99,7 +99,7 @@
                         <a class="nav-link" href="{% url 'image_list' %}">Images</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'print' %}">Control</a>
+                        <a class="nav-link" href="{% url 'manual_control' %}">Control</a>
                     </li>
                     
                     <li class="nav-item">
@@ -120,7 +120,7 @@
         <ul class="page_ul" > 
             <a href="{% url 'system_info' %}" class="btn btn-info mb-4" style="width: 50%; padding: 10px 0px" >View System Information</a>  <!-- Link to system info page -->
             <a href="{% url 'image_list' %}" class="btn btn-info mb-4" style="width: 50%; padding: 10px 0px">Back to Gallery</a>
-            <a href="{% url 'print' %}" class="btn btn-info mb-4" style="width: 50%; padding: 10px 0px">View Printer</a>
+            <a href="{% url 'manual_control' %}" class="btn btn-info mb-4" style="width: 50%; padding: 10px 0px">View Printer</a>
         </ul>
         
         <form action="{% url 'logout' %}" method="post" style="display:inline;">

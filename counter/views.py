@@ -16,8 +16,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.exceptions import SuspiciousOperation
 
-# Global variable to hold the count (for demonstration purposes only)
-count = 0
+
 # Global variable to control the camera feed thread
 camera_thread = None
 feed_active = False
@@ -35,7 +34,6 @@ def index(request):
 
 @login_required
 def printer_control(request):
-
     return render(request, 'counter/3d_printer.html')
 
 @login_required

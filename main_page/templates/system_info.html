@@ -1,20 +1,42 @@
+<!-- counter/templates/counter/system_info.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Gallery</title>
+    <title>System Information</title>
+    <script>
+        function fetchSystemInfo() {
+            fetch("{% url 'system_info_api' %}")
+                .then(response => response.json())
+                .then(data => {
+                    // Update the HTML elements with the fetched data
+                    document.getElementById("cpu-usage").innerText = data.cpu_usage + "%";
+                    document.getElementById("cpu-temperature").innerText = data.cpu_temperature + " °C";
+                    document.getElementById("memory-total").innerText = data.memory_total.toFixed(2) + " GB";
+                    document.getElementById("memory-used").innerText = data.memory_used.toFixed(2) + " GB";
+                    document.getElementById("memory-free").innerText = data.memory_free.toFixed(2) + " GB";
+                    document.getElementById("disk-total").innerText = data.disk_total.toFixed(2) + " GB";
+                    document.getElementById("disk-used").innerText = data.disk_used.toFixed(2) + " GB";
+                    document.getElementById("disk-free").innerText = data.disk_free.toFixed(2) + " GB";
+                })
+                .catch(error => console.error('Error fetching system info:', error));
+        }
+
+        // Fetch system info every 2 seconds
+        setInterval(fetchSystemInfo, 2000);
+    </script>
     {% load static %}
     <link rel="stylesheet" href="{% static 'images/css/bootstrap.min.css' %}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'script/js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'script/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'script/js/popper.min.js' %}"></script>
     <style>
         body {
             font-family: 'Arial', sans-serif;
             margin-top: 140px;  /* Adjust for fixed navbar */
         }
-
+        
         .navbar {
             background-color: #343a40;  /* Dark background */
         }
@@ -24,13 +46,12 @@
             font-weight: bold;
             font-size: 1.8rem;
         }
-
         .page_ul {
             display: flex;
             flex-direction: column;  /* Align items vertically */
             padding: 0;
             list-style-type: none;
-        }
+          }
 
         .navbar-nav .nav-link {
             color: #ffffff !important;
@@ -49,9 +70,6 @@
             border-color: #ffffff;
         }
 
-        .navbar-toggler-icon {
-            background-color: #ffffff;  /* Hamburger icon color */
-        }
         .navbar-toggler-icon {
             width: 30px;
             height: 30px;
@@ -72,43 +90,17 @@
         .btn-main:hover {
             background-color: #0056b3;
         }
-
-        .but {
+        .but{
             color: Black;
         }
 
         .container {
             padding: 20px;
         }
-
-        /* Ensure all image cards have the same size */
-        .card {
-            height: 400px;  /* Set the fixed height for the card */
-            display: flex;
-            flex-direction: column;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .card-img-top {
-            width: 100%;
-            height: 250px;  /* Fixed height for images */
-            object-fit: cover;  /* Ensure images cover the box while maintaining aspect ratio */
-        }
-
-
-        .card-body {
-            flex-grow: 1;  /* Ensure that the body of the card takes up the remaining space */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
     </style>
 </head>
 <body>
-     <!-- Main Navbar -->
-     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
         <div class="container">
             <a class="navbar-brand" href="{% url 'home' %}">Greenhouse Automaton</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -125,30 +117,29 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'manual_control' %}">Control</a>
                     </li>
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'system_info' %}">View System Information</a> <!-- Link to system info page -->
+                        <a class="nav-link" href="{% url 'system_info' %}">View System Information</a>  <!-- Link to system info page -->
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
+    <h1 style="padding: 10px 0px">System Information</h1>
+    <h2> </h2>
+    <h2>CPU Usage</h2>
+    <p>CPU Usage: <span id="cpu-usage">Loading...</span></p>
+    <p>CPU Temperature: <span id="cpu-temperature">Loading...</span></p>
 
-    <div class="container">
-        <h1 class="my-4">Image Gallery</h1>
-        <div class="row">
-            {% for filename in images %}
-            <div class="col-lg-3 col-md-4 col-6 mb-4">
-                <div class="card">
-                    <!-- Use get_media_prefix to build the image URL dynamically -->
-                    <img src="{% get_media_prefix %}pictures/{{ filename }}" class="card-img-top img-fluid" alt="Image">
-                    <div class="card-body text-center">
-                        <a href="{% url 'download_image' filename %}" class="btn btn-primary">Download</a>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
+    <h2>Memory Usage</h2>
+    <p>Total Memory: <span id="memory-total">Loading...</span></p>
+    <p>Used Memory: <span id="memory-used">Loading...</span></p>
+    <p>Free Memory: <span id="memory-free">Loading...</span></p>
 
+    <h2>Disk Usage</h2>
+    <p>Total Disk: <span id="disk-total">Loading...</span></p>
+    <p>Used Disk: <span id="disk-used">Loading...</span></p>
+    <p>Free Disk: <span id="disk-free">Loading...</span></p>
+    
 </body>
 </html>

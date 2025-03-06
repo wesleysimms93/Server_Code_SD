@@ -127,7 +127,7 @@
                         <a class="nav-link" href="{% url 'image_list' %}">Images</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'print' %}">Control</a>
+                        <a class="nav-link" href="{% url 'manual_control' %}">Control</a>
                     </li>
                     
                     <li class="nav-item">
@@ -149,7 +149,7 @@
         <button onclick="move('home')">Home</button>
 
         <h2>Capture</h2>
-        <button id="downloadButton"">Visble Light Capture</button>
+        <button id="downloadButton">Visble Light Capture</button>
         <button onclick="controlCapture('stop')">IR Capture</button>
     </div>
 
@@ -158,7 +158,7 @@
     <button id="toggleButton" onclick="toggleFeed()">Turn On Feed</button>
 
     <!-- Camera feed -->
-    <img id="cameraFeed" src="http://192.168.137.135:5000/video_feed" alt="Live Camera Feed" />
+    <img id="cameraFeed" src="http://192.168.137.135:5000/video_feed" alt="Live Camera Feed" style="display: none;" />
 
     <script>
         function toggleFeed() {

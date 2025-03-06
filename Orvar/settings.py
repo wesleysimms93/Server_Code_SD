@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Other apps
-    'counter',
+    #'counter',
     'images',
+    'main_page',
+    'controls'
 
 ]
 

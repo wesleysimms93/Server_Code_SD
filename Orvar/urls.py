@@ -16,19 +16,24 @@ Including another URLconf
 """
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from counter import views as counter_views
-from controls import views
+#from counter import views as counter_views
+from controls import views as control_views
+from main_page import views 
+from main_page import views as main_page_views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 urlpatterns = [
-    path('', include('counter.urls')),
+    #path('', include(main_page_views), name='main'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),  # Add logout URL
-    path('', counter_views.index, name='home'),
+    #path('', main_page_views.index, name='home'),
     path("admin/", admin.site.urls),
     path('image/', include('images.urls'), name='image'),
+    path('control/', include('controls.urls'), name = 'control'),
+    path('', include('main_page.urls'), name='main')
 ]
+
 
 
 
