@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Folders</title>
+</head>
+<body>
+    <h1>Image Folders</h1>
+    <ul>
+        {% for folder in folders %}
+            <li>
+                <a href="{% url 'image_list' folder %}">{{ folder }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -95,6 +95,9 @@
         .but{
             color: Black;
         }
+        .video{
+            text-align: center;
+        }
 
         .container {
             padding: 20px;
@@ -154,11 +157,13 @@
     </div>
 
     <button class="emergency-stop" onclick="emergencyStop()">EMERGENCY STOP</button>
-
     <button id="toggleButton" onclick="toggleFeed()">Turn On Feed</button>
-
-    <!-- Camera feed -->
-    <img id="cameraFeed" src="{{Cam_url}}" alt="Live Camera Feed" style="display: none;" />
+    <div style="display: grid; place-items: center; height: 10vh;">
+        <!-- Camera feed -->
+        <img id="cameraFeed" src="{% url 'video_stream' %}" alt="Live Camera Feed" class="video"/>
+    </div>
+    
+    
 
     <script>
         function toggleFeed() {

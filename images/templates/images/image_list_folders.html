@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'images/css/bootstrap.min.css' %}">
+    <script src="{% static 'script/js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'script/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'script/js/popper.min.js' %}"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin-top: 140px;  /* Adjust for fixed navbar */
+        }
+
+        .navbar {
+            background-color: #343a40;  /* Dark background */
+        }
+
+        .navbar-brand {
+            color: #ffffff !important;  /* White logo text */
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+
+        .page_ul {
+            display: flex;
+            flex-direction: column;  /* Align items vertically */
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff !important;
+            font-size: 1.1rem;
+            padding: 10px 15px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa !important;  /* Light color on hover */
+            background-color: #007bff;
+            border-radius: 5px;
+        }
+
+        .navbar-toggler {
+            border-color: #ffffff;
+        }
+
+        .navbar-toggler-icon {
+            background-color: #ffffff;  /* Hamburger icon color */
+        }
+        .navbar-toggler-icon {
+            width: 30px;
+            height: 30px;
+            display: block;
+            position: relative;
+            background-color: transparent;
+        }
+
+        .btn-main {
+            background-color: #007bff;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-main:hover {
+            background-color: #0056b3;
+        }
+
+        .but {
+            color: Black;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        /* Ensure all image cards have the same size */
+        .card {
+            height: 300px;  /* Set the fixed height for the card */
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 250px;  /* Fixed height for images */
+            object-fit: cover;  /* Ensure images cover the box while maintaining aspect ratio */
+        }
+
+
+        .card-body {
+            flex-grow: 1;  /* Ensure that the body of the card takes up the remaining space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+     <!-- Main Navbar -->
+     <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Greenhouse Automaton</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'image_list' %}">Images</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'manual_control' %}">Control</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'system_info' %}">View System Information</a> <!-- Link to system info page -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="my-4">Images in {{ folder_name }}</h1>
+        <div class="row">
+            {% for file in test %}
+            <div class="col-lg-3 col-md-4 col-6 mb-4">
+                <div class="card">
+                    <!-- Use get_media_prefix to build the image URL dynamically -->
+                    <img src="{{ file.path }}" alt="{{ file.name }}" width="250">
+                    <p>{{ file.name }}</p>
+                    <div class="card-body text-center">
+                        <a href="{% url 'folder_download' file.info %}" class="btn btn-primary">Download</a> 
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>
