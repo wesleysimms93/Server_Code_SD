@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserPathingCreatorTest", "UserPathingCreatorTest\UserPathingCreatorTest.csproj", "{9E816C3A-B3BB-44D5-8F2C-1D56973DD1CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9E816C3A-B3BB-44D5-8F2C-1D56973DD1CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E816C3A-B3BB-44D5-8F2C-1D56973DD1CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E816C3A-B3BB-44D5-8F2C-1D56973DD1CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E816C3A-B3BB-44D5-8F2C-1D56973DD1CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {13769BB6-BE55-4A68-931D-BD2749A0FBD2}
+	EndGlobalSection
+EndGlobal
