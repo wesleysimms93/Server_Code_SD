@@ -1,0 +1,16 @@
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\bin\Debug\net8.0-windows\UserPathingCreatorTest.exe
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\bin\Debug\net8.0-windows\UserPathingCreatorTest.deps.json
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\bin\Debug\net8.0-windows\UserPathingCreatorTest.runtimeconfig.json
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\bin\Debug\net8.0-windows\UserPathingCreatorTest.dll
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\bin\Debug\net8.0-windows\UserPathingCreatorTest.pdb
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\obj\Debug\net8.0-windows\UserPathingCreatorTest.Form1.resources
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\obj\Debug\net8.0-windows\UserPathingCreatorTest.csproj.GenerateResource.cache
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\obj\Debug\net8.0-windows\UserPathingCreatorTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\obj\Debug\net8.0-windows\UserPathingCreatorTest.AssemblyInfoInputs.cache
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\obj\Debug\net8.0-windows\UserPathingCreatorTest.AssemblyInfo.cs
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\obj\Debug\net8.0-windows\UserPathingCreatorTest.csproj.CoreCompileInputs.cache
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\obj\Debug\net8.0-windows\UserPathingCreatorTest.dll
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\obj\Debug\net8.0-windows\refint\UserPathingCreatorTest.dll
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\obj\Debug\net8.0-windows\UserPathingCreatorTest.pdb
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\obj\Debug\net8.0-windows\UserPathingCreatorTest.genruntimeconfig.cache
+C:\Users\girl dinner 💅🍹🥂\source\repos\UserPathingCreatorTest\UserPathingCreatorTest\obj\Debug\net8.0-windows\ref\UserPathingCreatorTest.dll
