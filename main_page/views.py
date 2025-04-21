@@ -10,7 +10,7 @@ import numpy as np
 import requests
 from datetime import datetime
 import threading
-from picamera2 import Picamera2
+#from picamera2 import Picamera2
 from django.http import StreamingHttpResponse
 from django.shortcuts import render
 from django.http import HttpResponse
