@@ -66,10 +66,10 @@ def download_from_external(request):
             image_data = response.content
             # Extract the file name from the URL (e.g., 'image.jpg')
             
-            now = datetime.now().strftime("%m-%d_%H:%M:%S")
+            now = datetime.now().strftime("%m_%d_%H_%M_%S")
 
             #image_name = os.path.basename(image_url)
-            image_path = os.path.join(media_dir, now + "_pic.jpg")
+            image_path = os.path.join(media_dir,"Manual_Control", now + "_pic.jpg")
 
             # Save the image to the Media folder
             with open(image_path, 'wb') as img_file:
