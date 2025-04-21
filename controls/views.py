@@ -1,5 +1,3 @@
-
-
 # Create your views here.
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
@@ -18,6 +16,7 @@ from django.http import StreamingHttpResponse
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.exceptions import SuspiciousOperation
+import subprocess
 
 
 #Were Pitcures are stored
@@ -27,26 +26,30 @@ Cam_URL = ""
 #Should have this only run once
 #Need to fix that. 
 def testconnection():
-    if(Cam_URL != ""):
-        return Cam_URL
+    global Cam_URL  # Ensure the global variable is used
+    if Cam_URL:
+        return Cam_URL  # Return the cached URL if available
+
     Camera_URL = "http://192.168.8.3:5000"
     try:
-        response = requests.get(Camera_URL+"/test_connection", timeout=5)
+        response = requests.get(Camera_URL + "/test_connection", timeout=5)
         if response.status_code == 200:
             print("Connection Over Ethernet")
+            Cam_URL = Camera_URL  # Cache the URL
             return Camera_URL
-        else: 
-            print("Don't Know what happend but you got this")
-            return "http://192.168.8.3:5000"
+        else:
+            print("Camera connection failed, using default URL")
+            return "http://placeholder-url.com"  # Fallback URL
     except requests.ConnectionError:
-        print("Defalting to WIFI")
-        Camera_URL = "http://192.168.137.135:5000"
-        return Camera_URL
+        print("Defaulting to placeholder URL due to connection error")
+        return "http://placeholder-url.com"  # Fallback URL
 
 @login_required
 def manual_control(request):
     Camera_URL = testconnection()
-    return render(request, 'manual_control.html', {'Cam_url': Camera_URL+"/video_feed"})
+    if Camera_URL == "http://placeholder-url.com":
+        print("Warning: Camera connection failed. Using placeholder URL.")
+    return render(request, 'manual_control.html', {'Cam_url': Camera_URL + "/video_feed"})
 
 
 
@@ -91,19 +94,38 @@ def download_from_external(request):
 
 def generate_frames():
     Camera_URL = testconnection()
-    # Replace 'YOUR_IP_CAMERA_URL' with your IP camera's RTSP or HTTP URL
-    camera = cv2.VideoCapture(Camera_URL)
-    while True:
-        success, frame = camera.read()
-        if not success:
-            break
-        else:
-            # Encode frame as JPEG
-            _, buffer = cv2.imencode('.jpg', frame)
+    if Camera_URL == "http://placeholder-url.com":
+        print("Warning: Camera feed unavailable. Returning placeholder frames.")
+        while True:
+            # Generate a placeholder frame (e.g., a blank image)
+            blank_frame = np.zeros((480, 640, 3), dtype=np.uint8)  # Black image
+            _, buffer = cv2.imencode('.jpg', blank_frame)
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+            time.sleep(1)  # Simulate a frame rate
+    else:
+        camera = cv2.VideoCapture(Camera_URL)
+        while True:
+            success, frame = camera.read()
+            if not success:
+                print("Error: Unable to read frame from camera.")
+                break
+            else:
+                # Encode frame as JPEG
+                _, buffer = cv2.imencode('.jpg', frame)
+                frame = buffer.tobytes()
+                yield (b'--frame\r\n'
+                       b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
 def video_stream(request):
     return StreamingHttpResponse(generate_frames(),
                                  content_type='multipart/x-mixed-replace; boundary=frame')
+
+def execute_cool_script(request, action):
+    try:
+        # Call the cool.py script with the action as an argument
+        subprocess.run(['python', 'cool.py', action], check=True)
+        return JsonResponse({'status': 'success', 'message': f'Executed action: {action}'})
+    except Exception as e:
+        return JsonResponse({'status': 'error', 'message': str(e)})
