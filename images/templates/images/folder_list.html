@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Folders</title>
+    {% load static %}
+    <!-- Load Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'images/css/bootstrap.min.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin-top: 140px;  /* Adjust for fixed navbar */
+        }
+        
+        .navbar {
+            background-color: #343a40;  /* Dark background */
+        }
+
+        .navbar-brand {
+            color: #ffffff !important;  /* White logo text */
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff !important;
+            font-size: 1.1rem;
+            padding: 10px 15px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa !important;  /* Light color on hover */
+            background-color: #007bff;
+            border-radius: 5px;
+        }
+
+        .navbar-toggler {
+            border-color: #ffffff;
+        }
+
+        .navbar-toggler-icon {
+            width: 30px;
+            height: 30px;
+            display: block;
+            position: relative;
+            background-color: transparent;
+        }
+
+        .btn-main {
+            background-color: #007bff;
+            color: white;
+            border-radius: 30px;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-main:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .emergency-stop {
+            background-color: red;
+            color: white;
+            font-weight: bold;
+            border: none;
+            width: 100%;
+        }
+
+        .logout-button {
+            background-color: black;
+            color: white;
+            font-weight: bold;
+            border: none;
+        }
+
+        /* Styles specifically for the folder list section */
+        .folder-list-container h1 {
+            text-align: center;
+            background-color: #00850b; /* Blue background */
+            color: white;
+            padding: 15px 0;
+            font-size: 2rem;
+            font-weight: bold;
+            border-radius: 5px; /* Rounded corners */
+            margin-bottom: 20px; /* Space below header */
+        }
+
+        .folder-list-container ul {
+            list-style-type: none; /* Remove bullet points */
+            padding: 0;
+            align-items: center;
+            text-align: center;
+        }
+
+        .folder-list-container ul li {
+            
+            margin: 10px 40px; /* Add spacing between items */
+            padding: 20px;
+            border: 3px solid #d1d1d1; /* Subtle border */
+            border-radius: 5px; /* Rounded corners */
+            background-color: #f8f9fa; /* Light gray background */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .folder-list-container ul li:hover {
+            background-color: #e9ecef; /* Slightly darker gray on hover */
+            transform: scale(1.02); /* Slight zoom effect on hover */
+        }
+
+        .folder-list-container ul li a {
+            text-decoration: none; /* Remove underline from links */
+            color: #00850b; /* Blue text */
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .folder-list-container ul li a:hover {
+            color: #03ad11; /* Darker blue text on hover */
+        }
+
+        
+
+    </style>
+</head>
+<body>
+    <!-- Main Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{% url 'home' %}">Greenhouse Automaton</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'image_list' %}">Manual Images</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'manual_control' %}">Control</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'system_info' %}">View System Information</a>  <!-- Link to system info page -->
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'folder_list' %}">View Automaton Folders</a>  <!-- Link to system info page -->
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Content for the rest of the stuff-->
+    <div class="folder-list-container">
+        <h1>Image Folders</h1>
+        <ul>
+            {% for folder in folders %}
+                <li>
+                    <a href="{% url 'folder_image_list' folder %}">{{ folder }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    
+</body>
+</html>
