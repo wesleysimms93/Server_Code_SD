@@ -146,11 +146,8 @@
 
     <div class="controls">
         <h2>Movement</h2>
-        <button onclick="move('up')">Move Up</button>
-        <button onclick="move('down')">Move Down</button>
-        <button onclick="move('left')">Move Left</button>
-        <button onclick="move('right')">Move Right</button>
-        <button onclick="move('home')">Home</button>
+        <input type="text" id="movementInput" placeholder="Enter direction (e.g., up, down, left, right, home)" />
+        <button onclick="submitMovement()">Submit</button>
 
         <h2>Capture</h2>
         <button id="downloadButton">Visible Light Capture</button>
@@ -231,6 +228,33 @@
         // Update the status display
         function updateStatus(message) {
             document.getElementById('status').innerText = `Status: ${message}`;
+        }
+
+        // Function to submit movement commands to the 3D printer
+        function submitMovement() {
+            const direction = document.getElementById('movementInput').value.trim().toLowerCase();
+            if (direction) {
+                updateStatus(`Executing command: ${direction}`);
+                fetch(`/execute_cool_script/${direction}/`, {
+                    method: 'GET',
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            console.log(data.message);
+                            updateStatus(data.message);
+                        } else {
+                            console.error(data.message);
+                            updateStatus(`Error: ${data.message}`);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        updateStatus('Error: Unable to execute command.');
+                    });
+            } else {
+                alert('Please enter a valid command.');
+            }
         }
     </script>
 </body>
