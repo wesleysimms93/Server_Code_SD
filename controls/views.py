@@ -21,6 +21,7 @@ import subprocess
 
 #Were Pitcures are stored
 media_dir = os.path.join(os.getcwd(), 'media/pictures')
+upload_dir = os.path.join(os.getcwd(), 'media/uploads')
 #Global URL for the Camera Checked when the system requests the location 
 Cam_URL = ""
 #Should have this only run once
@@ -208,11 +209,12 @@ def automatic_control(request):
         uploaded_file = request.FILES.get('file')
         if uploaded_file and uploaded_file.name.endswith('.txt'):
             # Save the uploaded file to a temporary location
-            temp_file_path = os.path.join('media', 'uploads', uploaded_file.name)
+            temp_file_path = os.path.join(upload_dir, uploaded_file.name)
             with open(temp_file_path, 'wb') as temp_file:
+                print("Printing")
+                
                 for chunk in uploaded_file.chunks():
                     temp_file.write(chunk)
-
             try:
                 # Run the auto_run.py script with the uploaded file as an argument
                 subprocess.run(['python', 'auto_run.py', temp_file_path], check=True)
