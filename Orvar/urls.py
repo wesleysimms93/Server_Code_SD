@@ -31,7 +31,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('image/', include('images.urls'), name='image'),
     path('control/', include('controls.urls'), name = 'control'),
-    path('', include('main_page.urls'), name='main')
+    path('', include('main_page.urls'), name='main'),
+    path('execute_cool_script/<str:action>/', control_views.execute_cool_script, name='execute_cool_script')
 ]
 
 

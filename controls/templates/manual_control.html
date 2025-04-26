@@ -150,7 +150,8 @@
         <button onclick="submitMovement()">Submit</button>
 
         <h2>Capture</h2>
-        <button id="downloadButton">Visible Light Capture</button>
+        <button id="downloadButton_IR">Infrared Light Capture</button>
+        <button id="downloadButton_VL">Visible Light Capture</button>
         <button onclick="controlCapture('stop')">IR Capture</button>
     </div>
 
@@ -206,8 +207,11 @@
                 })
                 .catch(error => console.error('Error:', error));
         }
-        document.getElementById('downloadButton').addEventListener('click', function() {
-            window.location.href = '{% url "download_from_external" %}';  // Trigger the Django view
+        document.getElementById('downloadButton_VL').addEventListener('click', function() {
+            window.location.href = '{% url "download_from_external_VL" %}';  // Trigger the Django view
+        });
+        document.getElementById('downloadButton_IR').addEventListener('click', function() {
+            window.location.href = '{% url "download_from_external_IR" %}';  // Trigger the Django view
         });
         
         // Emergency stop functionality

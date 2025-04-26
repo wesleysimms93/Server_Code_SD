@@ -129,3 +129,77 @@ def execute_cool_script(request, action):
         return JsonResponse({'status': 'success', 'message': f'Executed action: {action}'})
     except Exception as e:
         return JsonResponse({'status': 'error', 'message': str(e)})
+    
+
+
+
+@login_required
+def download_from_external_VL(request):
+    Camera_URL = testconnection()
+    image_url = Camera_URL+"/Raw_Capture?infrared=false"  # Replace with the actual URL of the image
+
+    try:
+        # Make a request to the external website
+        response = requests.get(image_url)
+
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Create an HttpResponse object with the fetched image content
+            content_type = response.headers['Content-Type']
+            image_data = response.content
+            # Extract the file name from the URL (e.g., 'image.jpg')
+            
+            now = datetime.now().strftime("%m_%d_%H_%M_%S")
+
+            #image_name = os.path.basename(image_url)
+            image_path = os.path.join(media_dir,"Manual_Pictures", now + "_pic.jpg")
+
+            # Save the image to the Media folder
+            with open(image_path, 'wb') as img_file:
+                img_file.write(image_data)
+
+            # Return the image as an HTTP response with the appropriate content type
+            return HttpResponse(image_data, content_type=content_type)
+
+        else:
+            raise SuspiciousOperation("Failed to fetch the image from the external website.")
+
+    except requests.exceptions.RequestException as e:
+        raise SuspiciousOperation(f"An error occurred while fetching the image: {e}")
+    
+
+@login_required
+def download_from_external_IR(request):
+    Camera_URL = testconnection()
+    image_url = Camera_URL+"/Raw_Capture?infrared=true"  # Replace with the actual URL of the image
+
+    try:
+        # Make a request to the external website
+        response = requests.get(image_url)
+
+        # Check if the request was successful
+        if response.status_code == 200:
+            # Create an HttpResponse object with the fetched image content
+            content_type = response.headers['Content-Type']
+            image_data = response.content
+            # Extract the file name from the URL (e.g., 'image.jpg')
+            
+            now = datetime.now().strftime("%m_%d_%H_%M_%S")
+
+            #image_name = os.path.basename(image_url)
+            image_path = os.path.join(media_dir,"Manual_Pictures", now + "_pic.jpg")
+
+            # Save the image to the Media folder
+            with open(image_path, 'wb') as img_file:
+                img_file.write(image_data)
+
+            # Return the image as an HTTP response with the appropriate content type
+            return HttpResponse(image_data, content_type=content_type)
+
+        else:
+            raise SuspiciousOperation("Failed to fetch the image from the external website.")
+
+    except requests.exceptions.RequestException as e:
+        raise SuspiciousOperation(f"An error occurred while fetching the image: {e}")
+    
+    

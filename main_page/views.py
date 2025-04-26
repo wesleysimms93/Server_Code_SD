@@ -43,6 +43,7 @@ def system_info(request):
     disk_info = psutil.disk_usage('/')
     # Get the temperature readings
     temps = psutil.sensors_temperatures()
+    output = os.popen("vcgencmd measure_temp").read()
 
     # Check if 'coretemp' is in the readings
     if 'coretemp' in temps:
@@ -54,6 +55,12 @@ def system_info(request):
         cpu_temperature = psutil.sensors_temperatures()['coretemp'][0].current  # For systems with temperature sensors
     except (KeyError, AttributeError):
         cpu_temperature = "Not available"  # If temperature info isn't available
+        try:
+            print(output)
+            cpu_temperature = output.split('=')[1]
+            print(cpu_temperature)
+        except:
+            cpu_temperature = "None"
 
     # Context to pass to template
     context = {
@@ -77,6 +84,14 @@ def system_info_api(request):
         cpu_temperature = psutil.sensors_temperatures()['coretemp'][0].current
     except (KeyError, AttributeError):
         cpu_temperature = "Not available"
+        output = os.popen("vcgencmd measure_temp").read()
+        try:
+            print(output)
+            cpu_temperature = output.split('=')[1]
+            cpu_temperature = cpu_temperature.split("'")[0]
+            print(cpu_temperature)
+        except:
+            cpu_temperature = "None"
 
     data = {
         'cpu_usage': cpu_usage,
