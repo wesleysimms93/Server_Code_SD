@@ -1,6 +1,6 @@
 # Create your views here.
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 import psutil
 from django.contrib.auth.decorators import login_required
 import cv2
@@ -201,5 +201,29 @@ def download_from_external_IR(request):
 
     except requests.exceptions.RequestException as e:
         raise SuspiciousOperation(f"An error occurred while fetching the image: {e}")
-    
-    
+
+@login_required
+def automatic_control(request):
+    if request.method == 'POST':
+        uploaded_file = request.FILES.get('file')
+        if uploaded_file and uploaded_file.name.endswith('.txt'):
+            # Save the uploaded file to a temporary location
+            temp_file_path = os.path.join('media', 'uploads', uploaded_file.name)
+            with open(temp_file_path, 'wb') as temp_file:
+                for chunk in uploaded_file.chunks():
+                    temp_file.write(chunk)
+
+            try:
+                # Run the auto_run.py script with the uploaded file as an argument
+                subprocess.run(['python', 'auto_run.py', temp_file_path], check=True)
+                return HttpResponse("Automatic control executed successfully.")
+            except subprocess.CalledProcessError as e:
+                return HttpResponse(f"Error running the script: {str(e)}", status=500)
+            finally:
+                # Clean up the temporary file
+                if os.path.exists(temp_file_path):
+                    os.remove(temp_file_path)
+        else:
+            return HttpResponse("Invalid file type. Please upload a .txt file.", status=400)
+    return render(request, 'automatic_control.html')
+

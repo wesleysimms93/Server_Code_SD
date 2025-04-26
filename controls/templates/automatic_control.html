@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic Control</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'images/css/bootstrap.min.css' %}">
+    <script src="{% static 'script/js/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'script/js/bootstrap.min.js' %}"></script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Automatic Control</h1>
+        <form id="uploadForm" method="POST" enctype="multipart/form-data" action="{% url 'automatic_control' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="fileInput">Upload a .txt file:</label>
+                <input type="file" id="fileInput" name="file" class="form-control" accept=".txt" required>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Run Automatic Control</button>
+        </form>
+        <div id="status" class="mt-4"></div>
+    </div>
+</body>
+</html>

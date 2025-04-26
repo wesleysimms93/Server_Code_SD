@@ -10,4 +10,5 @@ urlpatterns = [
     path('video/', views.video_stream, name='video_stream'),
     #path('Manual/execute/<str:action>/', views.execute_cool_script, name='execute_cool_script'),
     #path('Manual/execute_cool_script/<str:action>/', views.execute_cool_script, name='execute_cool_script'),
+    path('automatic-control/', views.automatic_control, name='automatic_control'),
 ]
